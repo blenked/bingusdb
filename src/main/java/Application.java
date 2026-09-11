@@ -1,33 +1,17 @@
-import database.DatabaseConnection;
+import ui.MainFrame;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 public class Application {
-    static void main() {
-        String sql = "SELECT * FROM alunos";
 
-        try (Connection connection = DatabaseConnection.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(sql)) {
-
-            var metaData = resultSet.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            while (resultSet.next()) {
-                StringBuilder row = new StringBuilder();
-                for (int i = 1; i <= columnCount; i++) {
-                    if (i > 1) {
-                        row.append(" | ");
-                    }
-                    row.append(metaData.getColumnLabel(i)).append("=").append(resultSet.getString(i));
-                }
-                System.out.println(row);
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception ignorado) {
             }
-        } catch (SQLException e) {
-            System.err.println("Falha ao consultar alunos: " + e.getMessage());
-        }
+            new MainFrame().setVisible(true);
+        });
     }
 }

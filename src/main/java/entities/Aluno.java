@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Aluno {
 
-    private static final Pattern PADRAO_RA = Pattern.compile("^R\\d{5}-\\d$");
+    private static final Pattern PADRAO_RA = Pattern.compile("^[A-Z]\\d{5}-\\d$");
     private static final Pattern PADRAO_RG = Pattern.compile("^\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Xx]$");
     private static final int IDADE_MINIMA_ALUNO_ANOS = 4;
 
@@ -60,7 +60,7 @@ public class Aluno {
         }
         if (!PADRAO_RA.matcher(ra).matches()) {
             throw new IllegalArgumentException(
-                    "RA deve seguir o padrão: letra R, 5 dígitos, hífen e 1 dígito verificador (ex.: R00001-1).");
+                    "RA deve seguir o padrão: 1 letra maiúscula, 5 dígitos, hífen e 1 dígito verificador (ex.: R00001-1).");
         }
         return ra;
     }
